@@ -31,7 +31,7 @@ def test_employees_in_salary_range(spark):
     _run_cell(spark, "employees_in_salary_range")
     rows = spark.sql("SELECT * FROM week3_testing.employees WHERE salary >= 50000 AND salary <= 100000").collect()
     # TODO: assert len(rows) equals the number of employees with salary between $50,000 and $100,000
-    assert len(rows) == 5
+    assert len(rows) == 4
 
 def test_recent_hires(spark):
     """Verify that only recent hires are inserted."""

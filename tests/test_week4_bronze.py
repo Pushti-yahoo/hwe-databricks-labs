@@ -56,8 +56,8 @@ def test_online_orders_merge(spark):
     # row is a list of Row objects; row[0].customer_email is a string
     # TODO: assert that exactly one row exists for ONL-001 and it has the correct customer_email
      
-     assert len(row) == 1
-     assert row[0].customer_email == "alice@example.com"
+    assert len(row) == 1
+    assert row[0].customer_email == "alice@example.com"
 
 def test_instore_orders_merge(spark):
     _run_cell(spark, "bronze_instore_orders_merge")

@@ -46,12 +46,6 @@ def test_books_insert_overwrite(spark):
 
     assert len(nulls) == 0
 
-
-def test_transactions_insert_overwrite(spark):
-    _run_cell(spark, "bronze_transactions_load")
-    nulls = spark.sql("""
-        SELECT * FROM bronze.
-
 # ---------------------------------------------------------------------------
 # Tests — MERGE INTO (transactional data)
 # ---------------------------------------------------------------------------
@@ -147,13 +141,13 @@ def test_merge_updates_existing_rows(spark):
             'credit_card' AS payment_method,
             CAST(99.99 AS DECIMAL(10,2)) AS total_amount,
             current_timestamp() AS ingestion_timestamp,
-            'online_orders_1.csv' AS source_filename
+            'online_orders_1.csv' AS source_filename 
     """)
 
     _run_cell(spark, "bronze_online_orders_merge")
     rows = spark.sql("SELECT * FROM bronze.online_orders").collect()
     # TODO: assert that len(rows) equals 1 (MERGE updated, not inserted) and rows[0].customer_email equals 'alice_updated_email@example.com'
-    
+
     assert len(rows) == 1
     assert rows[0].customer_email == "alice_updated_email@example.com"
 
